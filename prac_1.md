@@ -9,3 +9,5 @@ cut -d: -f1 /etc/passwd | sort
 cat /etc/protocols | tail -n 5 | sort -nrk2 | awk '{print $2, $1}'
 ```
 <img height = 100 src="https://github.com/user-attachments/assets/601b7212-1ed1-4bbc-bd70-91d99e635bd0">
+##Задача 3
+в процессе
