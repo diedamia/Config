@@ -52,5 +52,71 @@ sudo chmod 755 /usr/local/bin/"$file"
 
 ## Задача 6
 ```bash
-в процессе
+#!/bin/bash
+file_extention="${1##*.}"
+first_line=$(head -n 1 $1)
+if [[ "$file_extention" == "py" ]]; then
+	if [[ ${first_line:0:1} == "#" ]]; then
+		echo "Комметарий есть"
+	else
+		echo "Комментария нет"
+	fi
+elif [[ "$file_extention" == "c" ]] || [[ "$file_extention" == "js" ]]; then
+	if [[ ${first_line:0:2} == "//" ]]; then
+		echo "Комментарий есть"
+	else
+		echo "Комментария нет"
+	fi
+else
+	echo "Файл имеет расширение, отличное от py, c и js"
+fi
 ```
+<img src="https://github.com/user-attachments/assets/bb964867-c94b-4f42-834f-dbd72dd64c8f">
+
+## Задача 7
+```bash
+#!/bin/bash
+t_file=$(mktemp)
+
+find "$1" -type f -exec md5sum {} + | sort > "$t_file"
+
+echo "Дубликаты файлов:"
+awk '{
+    if ($1 in seen) {
+        print seen[$1] ", " $2
+    } else {
+        seen[$1] = $2
+    }
+}' "$t_file"
+
+rm "$t_file"
+```
+
+<img src="https://github.com/user-attachments/assets/791f38bd-309e-479e-8c18-a2c6268a55e0">
+
+## Задача 8
+```bash
+#!/bin/bash
+find . -maxdepth 1 -name "*.$1" -print0| tar -cvzf archive_extention.tar.gz --null -T -
+```
+
+<img src="https://github.com/user-attachments/assets/ab6708ab-ff43-4d11-bbe3-961d1fe60e50">
+
+## Задача 9
+```bash
+#!/bin/bash
+sed 's/    /\t/g' "$1" > "$2"
+```
+
+<img src="https://github.com/user-attachments/assets/e513212f-b78a-4162-9ce6-258151844a5
+">
+<img height = 200 src="https://github.com/user-attachments/assets/1549b1f7-5fe2-4a7c-b348-2c8134b27c09">
+<img height = 200 src="https://github.com/user-attachments/assets/f39806bc-32ae-408b-b602-4bce5acd1f0a">
+
+## Задача 10
+```bash
+#!/bin/bash
+find "$1" -type f -empty -name "*.txt"
+```
+
+<img src="https://github.com/user-attachments/assets/1b17691c-cbc7-416d-9c9d-d217651f79d2">
