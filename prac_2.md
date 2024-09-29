@@ -45,24 +45,85 @@ fim pr_2_3.png
 
 ## Задание 4
 ```bash
-задания в процессе
+include "alldifferent.mzn";
+var 0..9: d1;
+var 0..9: d2;
+var 0..9: d3;
+var 0..9: d4;
+var 0..9: d5;
+var 0..9: d6;
+constraint (d1 + d2 + d3) = (d4 + d5 + d6);
+constraint all_different([d1, d2, d3, d4, d5, d6]);
+solve minimize (d1 + d2 + d3);
 ```
-<img src = "">
+<img src = "https://github.com/user-attachments/assets/835d96e2-c43e-4ec5-9015-5d96314a7658">
 
 ## Задание 5
 ```bash
-example
+enum PACKAGES = {
+      root,
+      menu_1_0_0, menu_1_1_0, menu_1_2_0, menu_1_3_0, menu_1_4_0, menu_1_5_0,
+      dropdown_2_0_0, dropdown_2_1_0, dropdown_2_2_0, dropdown_2_3_0, dropdown_1_8_0,
+      icons_1_0_0, icons_2_0_0
+  };
+
+array[PACKAGES] of var bool: depends;
+
+constraint
+      depends[root] == true;
+
+constraint
+      (depends[root] == true) -> (depends[menu_1_0_0] == true /\ depends[menu_1_5_0] == true /\ depends[icons_1_0_0] == true) /\
+      (depends[menu_1_5_0] == true) -> (depends[dropdown_2_3_0] == true /\ depends[dropdown_2_0_0] == true) /\
+      (depends[menu_1_4_0] == true) -> (depends[dropdown_2_3_0] == true /\ depends[dropdown_2_0_0] == true) /\
+      (depends[menu_1_3_0] == true) -> (depends[dropdown_2_3_0] == true /\ depends[dropdown_2_0_0] == true) /\
+      (depends[menu_1_2_0] == true) -> (depends[dropdown_2_3_0] == true /\ depends[dropdown_2_0_0] == true) /\
+      (depends[menu_1_1_0] == true) -> (depends[dropdown_2_3_0] == true /\ depends[dropdown_2_0_0] == true) /\
+      (depends[menu_1_0_0] == true) -> (depends[dropdown_1_8_0] == true) /\
+      (depends[dropdown_2_3_0] == true) -> (depends[icons_2_0_0] == true) /\
+      (depends[dropdown_2_2_0] == true) -> (depends[icons_2_0_0] == true) /\
+      (depends[dropdown_2_1_0] == true) -> (depends[icons_2_0_0] == true) /\
+      (depends[dropdown_2_0_0] == true) -> (depends[icons_2_0_0] == true);
+
+var int: total_packages = sum([if depends[pkg] then 1 else 0 endif | pkg in PACKAGES]);
+
+solve minimize total_packages;
+
+output ["Total packages used: ", show(total_packages), "\nDependencies: ", show(depends)];
 ```
-<img src = "">
+<img src = "https://github.com/user-attachments/assets/d6d89658-74d9-4360-b119-f44ed7263663">
 
 ## Задание 6
 ```bash
-example
+enum PACKAGES = {
+      root,
+      foo_1_0_0, foo_1_1_0,
+      left_1_0_0, right_1_0_0,
+      shared_1_0_0, shared_2_0_0,
+      target_1_0_0, target_2_0_0
+};
+
+array[PACKAGES] of var bool: depends;
+
+constraint
+      depends[root] == true;
+
+constraint
+      (depends[root] == true) -> (depends[foo_1_0_0] == true /\ depends[target_2_0_0] == true) /\
+      (depends[foo_1_1_0] == true) -> (depends[left_1_0_0] == true /\ depends[right_1_0_0] == true) /\
+      (depends[left_1_0_0] == true) -> (depends[shared_1_0_0] == true /\ depends[shared_2_0_0] == true) /\
+      (depends[right_1_0_0] == true) -> (depends[shared_1_0_0] == true) /\
+      (depends[shared_1_0_0] == true) -> (depends[target_1_0_0] == true);
+
+var int: total_packages = sum([if depends[pkg] then 1 else 0 endif | pkg in PACKAGES]);
+
+solve minimize total_packages;
+
+output ["Total packages used: ", show(total_packages), "\nDependencies: ", show(depends)];
 ```
-<img src = "">
+<img src = "https://github.com/user-attachments/assets/2de38c6d-4a7c-49e3-bea4-2855b8966bf9">
 
 ## Задание 7
 ```bash
-example
+не решено
 ```
-<img src = "">
