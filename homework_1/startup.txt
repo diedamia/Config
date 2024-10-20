@@ -1,0 +1,12 @@
+ls
+cd pictures
+pwd
+cd ..
+pwd
+cd /pictures/smaller_pictures
+ls
+cd /
+pwd
+cal
+cal 2 2022
+cal 2000
