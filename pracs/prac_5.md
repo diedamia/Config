@@ -115,13 +115,16 @@ def factorial(n):
 ```
 # Задание 3
 ### Байткод по задаче №1
+```
 0: iload_1
 1: bipush 10
 3: imul
 4: bipush 42
 6: iadd
 7: ireturn
+```
 ### Байткод по задаче №2
+```
 0: iconst_1
 1: istore_1
 2: iload_0
@@ -138,3 +141,4 @@ def factorial(n):
 13: goto 2
 14: iload_1
 15: ireturn
+```
